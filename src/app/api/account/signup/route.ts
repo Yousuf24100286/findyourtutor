@@ -3,7 +3,7 @@ import { AccountAPISchema } from "@/app/api/schema"
 import { RouteResponse, UserResponse } from "@/app/api/response";
 import { POST as SignInPost } from "@/app/api/account/signin/route";
 import { schema, sql } from "@/db";
-import { MethodNotAllowedError, ErrorHandler } from "../../errorHandler";
+import { MethodNotAllowedError, ErrorHandler } from "@/app/api/errorHandler";
 
 export const POST = async (req: NextRequest): RouteResponse<UserResponse> => {
 	try {
@@ -24,6 +24,6 @@ export const POST = async (req: NextRequest): RouteResponse<UserResponse> => {
 	}
 }
 
-export const GET = async (_: NextRequest): RouteResponse => MethodNotAllowedError;
-export const PUT = async (_: NextRequest): RouteResponse => MethodNotAllowedError;
-export const DELETE = async (_: NextRequest): RouteResponse => MethodNotAllowedError;
+export const GET = MethodNotAllowedError;
+export const PUT = MethodNotAllowedError;
+export const DELETE = MethodNotAllowedError;
