@@ -95,3 +95,5 @@ export function Large({ children, className }: TypographyProps) {
       <small className={cn("text-sm text-muted-foreground", className)}>{children}</small>
     );
   } 
+
+  
