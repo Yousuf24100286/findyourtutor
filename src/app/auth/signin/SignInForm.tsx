@@ -14,6 +14,7 @@ import {
 import { Input } from "@/components/ui/input"
 import Link from "next/link"
 import { Checkbox } from "@/components/ui/checkbox";
+import { P } from "@/components/Typography";
 
 
 const SignInFormSchema = z.object({
@@ -57,10 +58,8 @@ const SignInForm = () => {
 					name="password"
 					render={({ field }) => (
 						<FormItem>
-							<FormLabel
-								className="w-full inline-flex justify-between"
-							>
-								<p>Password</p>
+							<FormLabel className="w-full inline-flex justify-between">
+								<P>Password</P>
 								<Link href="/forgot-password" className="ml-2">Forgot Password</Link>
 							</FormLabel>
 							<FormControl>
@@ -76,9 +75,11 @@ const SignInForm = () => {
 					render={({ field }) => (
 						<FormItem>
 							<FormControl>
-								<Checkbox {...field} onCheckedChange={(checked) => form.setValue('rememberMe', checked ? 1 : 0)}/>
+								<Checkbox {...field} onCheckedChange={(checked) => form.setValue('rememberMe', checked ? 1 : 0)}/> 
 							</FormControl>
-							<FormLabel>Remember Me</FormLabel>
+							<FormLabel>
+								Remember Me
+							</FormLabel>
 							<FormMessage />
 						</FormItem>
 					)}
