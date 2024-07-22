@@ -1,5 +1,3 @@
-
-// import
 import { cn } from "@/lib/utils";
 import { ReactNode } from "react";
 
@@ -92,7 +90,7 @@ export function Large({ children, className }: TypographyProps) {
 
   export function Muted({ children, className }: TypographyProps) {
     return (
-      <small className={cn("text-sm text-muted-foreground", className)}>{children}</small>
+      <p className={cn("text-secondary font-normal", className)}>{children}</p>
     );
   } 
 
