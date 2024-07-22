@@ -1,14 +1,14 @@
 import type { Config } from "tailwindcss"
 
 const config = {
+  mode: "jit",
   darkMode: ["class"],
   content: [
     './pages/**/*.{ts,tsx}',
     './components/**/*.{ts,tsx}',
     './app/**/*.{ts,tsx}',
     './src/**/*.{ts,tsx}',
-	],
-  prefix: "",
+  ],
   theme: {
     container: {
       center: true,
@@ -19,6 +19,15 @@ const config = {
     },
     extend: {
       colors: {
+        'burnt-sienna': {
+          DEFAULT: '#EB7547',
+        },
+        'prussian-blue': {
+          DEFAULT: '#023047',
+        },
+        'link': {
+          DEFAULT: '#0C5DFF',
+        },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -51,7 +60,17 @@ const config = {
         card: {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
-        },
+        },      
+      },
+      container: {
+        center: true,
+      },
+      spacing: {
+        18: "4.5rem",
+        30: "7.5rem",
+      },
+      lineHeight: {
+        12: "3rem",
       },
       borderRadius: {
         lg: "var(--radius)",
