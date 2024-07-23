@@ -3,14 +3,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button"
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form"
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import Link from "next/link"
 import { Checkbox } from "@/components/ui/checkbox";
@@ -18,8 +11,8 @@ import { P } from "@/components/Typography";
 
 
 const SignInFormSchema = z.object({
-	email: z.string().email(),
-	password: z.string().min(8),
+	email: z.string(),
+	password: z.string(),
 	rememberMe: z.number(),
 }); 
 
@@ -60,7 +53,7 @@ const SignInForm = () => {
 						<FormItem>
 							<FormLabel className="w-full inline-flex justify-between">
 								<P>Password</P>
-								<Link href="/forgot-password" className="ml-2">Forgot Password</Link>
+								<Link href="/forgot-password"><P>Forgot Password</P></Link>
 							</FormLabel>
 							<FormControl>
 								<Input type="password" {...field} />
