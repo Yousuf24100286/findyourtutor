@@ -21,13 +21,17 @@ const config = {
       colors: {
         'burnt-sienna': {
           DEFAULT: '#EB7547',
+          "500": "#EB7547",
+          "600": "#FF5E2B",
         },
         'prussian-blue': {
           DEFAULT: '#023047',
         },
         'link': {
           DEFAULT: '#0C5DFF',
-        }, 
+        },
+        success: "#499F68",
+        warning: "#DD5147",
       },
       textColor: {
         'primary': '#040921',
