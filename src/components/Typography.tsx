@@ -1,5 +1,3 @@
-
-// import
 import { cn } from "@/lib/utils";
 import { ReactNode } from "react";
 
@@ -25,7 +23,7 @@ export function H2({ children, className }: TypographyProps) {
   return (
     <h2
       className={cn(
-        "scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0",
+        "scroll-m-20 text-3xl font-semibold tracking-tight first:mt-0",
         className
       )}
     >
@@ -61,7 +59,7 @@ export function H4({ children, className }: TypographyProps) {
 }
 
 export function P({ children, className }: TypographyProps) {
-  return <p className={cn("leading-7 [&:not(:first-child)]:mt-6", className)}>{children}</p>;
+  return <p className={cn("leading-7", className)}>{children}</p>;
 }
 
 export function Blockquote({ children, className }: TypographyProps) {
@@ -92,7 +90,7 @@ export function Large({ children, className }: TypographyProps) {
 
   export function Muted({ children, className }: TypographyProps) {
     return (
-      <small className={cn("text-sm text-muted-foreground", className)}>{children}</small>
+      <p className={cn("text-secondary font-normal", className)}>{children}</p>
     );
   } 
 
