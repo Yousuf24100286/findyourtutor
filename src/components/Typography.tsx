@@ -23,7 +23,7 @@ export function H2({ children, className }: TypographyProps) {
   return (
     <h2
       className={cn(
-        "scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0",
+        "scroll-m-20 text-3xl font-semibold tracking-tight first:mt-0",
         className
       )}
     >
@@ -59,7 +59,7 @@ export function H4({ children, className }: TypographyProps) {
 }
 
 export function P({ children, className }: TypographyProps) {
-  return <p className={cn("leading-7 [&:not(:first-child)]:mt-6", className)}>{children}</p>;
+  return <p className={cn("leading-7", className)}>{children}</p>;
 }
 
 export function Blockquote({ children, className }: TypographyProps) {
