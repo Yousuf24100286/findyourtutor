@@ -1,3 +1,5 @@
 {
-	"prettier.endOfLine": "crlf"
+	"prettier.endOfLine": "crlf",
+	"editor.tabSize": 2,
+	"editor.insertSpaces": false
 }
