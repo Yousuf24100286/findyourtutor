@@ -1,5 +1,4 @@
 "use client"
-import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button"
@@ -8,16 +7,14 @@ import { Input } from "@/components/ui/input"
 import Link from "next/link"
 import { Checkbox } from "@/components/ui/checkbox";
 import { P } from "@/components/Typography";
+import { SignInFormSchema, TSignInForm } from '@/schema/auth';
 
 
-const SignInFormSchema = z.object({
-	email: z.string(),
-	password: z.string(),
-	rememberMe: z.number(),
-}); 
-
-const SignInForm = () => {
-	const form = useForm<z.infer<typeof SignInFormSchema>>({
+const SignInForm = ({ action, className }: Readonly<{
+	action: (data: TSignInForm) => void,
+	className?: string
+}>) => {
+	const form = useForm<TSignInForm>({
 		resolver: zodResolver(SignInFormSchema),
 		defaultValues: {
 			email: '',
@@ -26,13 +23,10 @@ const SignInForm = () => {
 		}
 	});
 
-	const onSubmit = (data: z.infer<typeof SignInFormSchema>) => {
-		console.log(data);
-	}
-
+	const onSubmit = action;
 	return (
     <Form {...form} >
-      <form onSubmit={form.handleSubmit(onSubmit)} className="w-full flex flex-col gap-8">
+      <form onSubmit={form.handleSubmit(onSubmit)} className={className}>
         <FormField
           control={form.control}
           name="email"
@@ -83,5 +77,6 @@ const SignInForm = () => {
   )
 
 }
+
 
 export default SignInForm
