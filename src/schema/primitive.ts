@@ -11,7 +11,7 @@ export const UserRoleGroupCombinationSchema = z.union([
 	}),
 	z.object({
 		role: z.literal('admin'),
-		group: z.any().transform(() => 'admin'),
+		group: z.literal('admin'),
 	})
 ])
 export type TUserRoleGroupCombination = z.infer<typeof UserRoleGroupCombinationSchema>
