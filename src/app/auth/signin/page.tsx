@@ -3,7 +3,7 @@ import SignInForm from "@/forms/SignInForm";
 import { H1 } from "@/components/Typography";
 import { SignInAction } from "@/actions/auth";
 
-const SignInPage = () => {
+const SignInPage = async () => {
 
 	return (
 		<div className='flex flex-row justify-center'>
