@@ -3,7 +3,7 @@ import { AuthHeader } from '@/components/Header';
 import Link from 'next/link';
 import { P } from '@/components/Typography';
 
-const AuthLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => (
+const AuthLayout = async ({ children }: Readonly<{ children: React.ReactNode }>) => (
 	<React.Fragment>
 		<div className='flex-grow flex flex-col justify-between my-4'>
 			<div className='w-full'>

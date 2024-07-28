@@ -7,7 +7,7 @@ import TutorSignUpForm from '@/forms/SignUp/TutorForm';
 import StudentSignUpForm from '@/forms/SignUp/StudentForm';
 import { SignUpAction } from '@/actions/auth';
 
-const RoleSelectionCards = () => {	
+const RoleSelectionCards = async () => {	
 	const RoleSelectionForm = ({ role, group }: Readonly<TUserRoleGroupCombination>) => (
 		<form className='w-full'>
 			<input type="hidden" name="role" value={role} />
@@ -40,7 +40,7 @@ const RoleSelectionCards = () => {
 	)
 }
 
-const SignUpCard = ({ role, group }: Readonly<TUserRoleGroupCombination>) => (
+const SignUpCard = async ({ role, group }: Readonly<TUserRoleGroupCombination>) => (
 	<div className='flex flex-row justify-center'>
 		<div className="flex flex-col items-center bg-white min-w-96 rounded-lg gap-4 pt-6 pb-9 px-10">
 			<div className="flex items-center">
@@ -62,7 +62,7 @@ const SignUpCard = ({ role, group }: Readonly<TUserRoleGroupCombination>) => (
 	</div>
 )
 
-const SignUpPage = ({ searchParams }: Readonly<{ searchParams: unknown }>) => {
+const SignUpPage = async ({ searchParams }: Readonly<{ searchParams: unknown }>) => {
 
 	let params: TUserRoleGroupCombination | undefined = undefined;
 	try {
