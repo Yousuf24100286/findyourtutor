@@ -5,7 +5,7 @@ import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 
 const ResetPasswordForm = async () => (
-	<form method='POST' className='w-full flex flex-col gap-6' action={async (formData: FormData) => {
+	<form className='w-full flex flex-col gap-6' action={async (formData: FormData) => {
 		'use server'
 		const email = formData.get('email') as string;
 		console.log(email);
