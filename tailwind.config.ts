@@ -1,14 +1,16 @@
-import type { Config } from "tailwindcss"
+import type { Config } from "tailwindcss";
 
 const config = {
   mode: "jit",
+
   darkMode: ["class"],
   content: [
-    './pages/**/*.{ts,tsx}',
-    './components/**/*.{ts,tsx}',
-    './app/**/*.{ts,tsx}',
-    './src/**/*.{ts,tsx}',
+    "./pages/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./app/**/*.{ts,tsx}",
+    "./src/**/*.{ts,tsx}",
   ],
+  prefix: "",
   theme: {
     container: {
       center: true,
@@ -18,25 +20,11 @@ const config = {
       },
     },
     extend: {
-      colors: {
-        'burnt-sienna': {
-          DEFAULT: '#EB7547',
-          "500": "#EB7547",
-          "600": "#FF5E2B",
-        },
-        'prussian-blue': {
-          DEFAULT: '#023047',
-        },
-        'link': {
-          DEFAULT: '#0C5DFF',
-        },
-        success: "#499F68",
-        warning: "#DD5147",
-      },
+      // custom
       textColor: {
-        'primary': '#040921',
-        'secondary': "#04092160",
-        'disabled': "#04092132",
+        primary: "#040921",
+        secondary: "#04092160",
+        disabled: "#04092132",
       },
       container: {
         center: true,
@@ -47,6 +35,64 @@ const config = {
       },
       lineHeight: {
         12: "3rem",
+      },
+
+      // shadcn-ui
+      colors: {
+        // custom
+        "burnt-sienna": {
+          DEFAULT: "#EB7547",
+          "500": "#EB7547",
+          "600": "#FF5E2B",
+        },
+        "prussian-blue": {
+          DEFAULT: "#023047",
+        },
+        link: {
+          DEFAULT: "#0C5DFF",
+        },
+        success: "#499F68",
+        warning: "#DD5147",
+
+        // shadcn-ui
+        border: "hsl(var(--border))",
+        input: "hsl(var(--input))",
+        ring: "hsl(var(--ring))",
+        background: "hsl(var(--background))",
+        foreground: "hsl(var(--foreground))",
+        primary: {
+          DEFAULT: "hsl(var(--primary))",
+          foreground: "hsl(var(--primary-foreground))",
+        },
+        secondary: {
+          DEFAULT: "hsl(var(--secondary))",
+          foreground: "hsl(var(--secondary-foreground))",
+        },
+        destructive: {
+          DEFAULT: "hsl(var(--destructive))",
+          foreground: "hsl(var(--destructive-foreground))",
+        },
+        muted: {
+          DEFAULT: "hsl(var(--muted))",
+          foreground: "hsl(var(--muted-foreground))",
+        },
+        accent: {
+          DEFAULT: "hsl(var(--accent))",
+          foreground: "hsl(var(--accent-foreground))",
+        },
+        popover: {
+          DEFAULT: "hsl(var(--popover))",
+          foreground: "hsl(var(--popover-foreground))",
+        },
+        card: {
+          DEFAULT: "hsl(var(--card))",
+          foreground: "hsl(var(--card-foreground))",
+        },
+      },
+      borderRadius: {
+        lg: "var(--radius)",
+        md: "calc(var(--radius) - 2px)",
+        sm: "calc(var(--radius) - 4px)",
       },
       keyframes: {
         "accordion-down": {
@@ -65,6 +111,6 @@ const config = {
     },
   },
   plugins: [require("tailwindcss-animate")],
-} satisfies Config
+} satisfies Config;
 
-export default config
+export default config;
