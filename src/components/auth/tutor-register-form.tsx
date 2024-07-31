@@ -102,30 +102,6 @@ export const TutorRegisterForm = ({ group }: { group: 'ENROLLED' | 'GRADUATED' }
             </FormItem>
           )}
         />
-        {/* <FormField
-          control={form.control}
-          name="university"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>University</FormLabel>
-              <FormControl>
-                <Select {...field}>
-                  <SelectTrigger
-                    className="w-full"
-                  >
-                    <SelectValue>Select University</SelectValue>
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="university1">University 1</SelectItem>
-                    <SelectItem value="university2">University 2</SelectItem>
-                    <SelectItem value="university3">University 3</SelectItem>
-                  </SelectContent>
-                </Select>
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        /> */}
         <FormField
           control={form.control}
           name="email"

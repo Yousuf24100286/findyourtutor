@@ -25,7 +25,6 @@ export const RegisterSchema = z.object({
 });
 
 export const TutorRegisterSchema = RegisterSchema.extend({
-  // university: z.string(),
 });
 
 export const UserRoleGroupCombinationSchema = z.union([
