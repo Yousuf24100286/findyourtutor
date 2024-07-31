@@ -49,3 +49,20 @@ model PasswordResetToken {
 
     @@unique([email, token])
 }
+
+enum QueryStatus {
+    PENDING
+    IN_PROGRESS
+    RESOLVED
+}
+
+model ContactQuery {
+    id        String      @id @default(cuid())
+    name      String
+    email     String
+    subject   String
+    message   String
+    status    QueryStatus @default(PENDING)
+    createdAt DateTime    @default(now())
+    updatedAt DateTime    @updatedAt
+}

@@ -1,12 +1,12 @@
-import { Button } from "@/components/ui/button";
-import { LoginButton } from "@/components/auth/login-button";
+'use client';
+
+import { useCurrentUser } from "@/hooks/use-current-user";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
-  return (
-    <LoginButton asChild>
-      <Button variant="secondary" size="lg">
-        Sign in
-      </Button>
-    </LoginButton>
-  )
+  const user = useCurrentUser();
+  const router = useRouter();
+
+  if (user) router.push('/dashboard');
+  else router.push('/auth/login');
 }
