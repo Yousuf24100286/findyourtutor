@@ -19,7 +19,7 @@ export const register = async (values: z.infer<typeof RegisterSchema>) => {
   const { name, email, password, role, group, termsAndConditions } =
     validatedFields.data;
 
-  if (termsAndConditions === 0)
+  if (termsAndConditions === false)
     return { error: "You need to accept the terms and conditions!" };
 
   const hashedPassword = await bcrypt.hash(password, 10);
