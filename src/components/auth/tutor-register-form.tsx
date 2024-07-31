@@ -151,16 +151,18 @@ export const TutorRegisterForm = ({ group }: { group: 'ENROLLED' | 'GRADUATED' }
         />
         <FormField
           control={form.control}
-          name="termsAndConditions"
+          name="termsAndConditions" 
           render={({ field }) => (
-            <FormItem>
+            <FormItem
+              className="inline-flex items-center justify-start gap-2"
+            >
               <FormControl>
-                <Checkbox {...field} 
+                <Checkbox {...field}
                   value={form.getValues('termsAndConditions')}
                   onCheckedChange={(checked) => form.setValue('termsAndConditions', checked ? 1 : 0)} />
               </FormControl>
-              <FormLabel>
-                Remember Me
+              <FormLabel className="h-full">
+                <P>I agree to the <Link href="/terms-and-conditions">Terms and Conditions</Link></P>
               </FormLabel>
               <FormMessage />
             </FormItem>
