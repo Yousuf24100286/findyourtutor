@@ -38,7 +38,7 @@ export const TutorRegisterForm = ({ group }: { group: 'ENROLLED' | 'GRADUATED' }
       password: "",
       role: 'TUTOR',
       group,
-      termsAndConditions: 0,
+      termsAndConditions: false,
     },
   });
 
@@ -104,30 +104,6 @@ export const TutorRegisterForm = ({ group }: { group: 'ENROLLED' | 'GRADUATED' }
         />
         <FormField
           control={form.control}
-          name="university"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>University</FormLabel>
-              <FormControl>
-                <Select {...field}>
-                  <SelectTrigger
-                    className="w-full"
-                  >
-                    <SelectValue>Select University</SelectValue>
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="university1">University 1</SelectItem>
-                    <SelectItem value="university2">University 2</SelectItem>
-                    <SelectItem value="university3">University 3</SelectItem>
-                  </SelectContent>
-                </Select>
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
           name="email"
           render={({ field }) => (
             <FormItem>
@@ -175,26 +151,27 @@ export const TutorRegisterForm = ({ group }: { group: 'ENROLLED' | 'GRADUATED' }
         />
         <FormField
           control={form.control}
-          name="termsAndConditions"
+          name="termsAndConditions" 
           render={({ field }) => (
-            <FormItem>
+            <FormItem
+              className="inline-flex items-center justify-start gap-2"
+            >
               <FormControl>
-                <Checkbox {...field} onCheckedChange={(checked) => form.setValue('termsAndConditions', checked ? 1 : 0)} />
+                <Checkbox {...field}
+                  checked={field.value}
+                  onCheckedChange={field.onChange}
+                  value={field.value?.toString()}
+                  disabled={field.disabled}   
+                />
               </FormControl>
-              <FormLabel>
-                Remember Me
+              <FormLabel className="h-full">
+                <P>I agree to the <Link href="/terms-and-conditions">Terms and Conditions</Link></P>
               </FormLabel>
               <FormMessage />
             </FormItem>
           )}
         />
-        <Button
-          disabled={isPending}
-          type="submit"
-          className="w-full"
-        >
-          Submit
-        </Button>
+        <Button disabled={isPending} type="submit" className="w-full" >Submit</Button>
       </form>
     </Form >
   );
