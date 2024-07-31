@@ -38,7 +38,7 @@ export const TutorRegisterForm = ({ group }: { group: 'ENROLLED' | 'GRADUATED' }
       password: "",
       role: 'TUTOR',
       group,
-      termsAndConditions: 0,
+      termsAndConditions: false,
     },
   });
 
@@ -158,8 +158,11 @@ export const TutorRegisterForm = ({ group }: { group: 'ENROLLED' | 'GRADUATED' }
             >
               <FormControl>
                 <Checkbox {...field}
-                  value={form.getValues('termsAndConditions')}
-                  onCheckedChange={(checked) => form.setValue('termsAndConditions', checked ? 1 : 0)} />
+                  checked={field.value}
+                  onCheckedChange={field.onChange}
+                  value={field.value?.toString()}
+                  disabled={field.disabled}   
+                />
               </FormControl>
               <FormLabel className="h-full">
                 <P>I agree to the <Link href="/terms-and-conditions">Terms and Conditions</Link></P>
@@ -168,13 +171,7 @@ export const TutorRegisterForm = ({ group }: { group: 'ENROLLED' | 'GRADUATED' }
             </FormItem>
           )}
         />
-        <Button
-          disabled={isPending}
-          type="submit"
-          className="w-full"
-        >
-          Submit
-        </Button>
+        <Button disabled={isPending} type="submit" className="w-full" >Submit</Button>
       </form>
     </Form >
   );

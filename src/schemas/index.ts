@@ -21,7 +21,7 @@ export const RegisterSchema = z.object({
   password: z.string().min(8, { message: "Minimum 8 characters required" }),
   role: z.nativeEnum(UserRole),
   group: z.nativeEnum(UserGroup),
-  termsAndConditions: z.number().optional().default(0),
+  termsAndConditions: z.boolean()
 });
 
 export const TutorRegisterSchema = RegisterSchema.extend({
