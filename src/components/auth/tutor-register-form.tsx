@@ -102,7 +102,7 @@ export const TutorRegisterForm = ({ group }: { group: 'ENROLLED' | 'GRADUATED' }
             </FormItem>
           )}
         />
-        <FormField
+        {/* <FormField
           control={form.control}
           name="university"
           render={({ field }) => (
@@ -125,7 +125,7 @@ export const TutorRegisterForm = ({ group }: { group: 'ENROLLED' | 'GRADUATED' }
               <FormMessage />
             </FormItem>
           )}
-        />
+        /> */}
         <FormField
           control={form.control}
           name="email"
@@ -179,7 +179,9 @@ export const TutorRegisterForm = ({ group }: { group: 'ENROLLED' | 'GRADUATED' }
           render={({ field }) => (
             <FormItem>
               <FormControl>
-                <Checkbox {...field} onCheckedChange={(checked) => form.setValue('termsAndConditions', checked ? 1 : 0)} />
+                <Checkbox {...field} 
+                  value={form.getValues('termsAndConditions')}
+                  onCheckedChange={(checked) => form.setValue('termsAndConditions', checked ? 1 : 0)} />
               </FormControl>
               <FormLabel>
                 Remember Me

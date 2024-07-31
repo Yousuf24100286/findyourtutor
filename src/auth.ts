@@ -32,9 +32,16 @@ export const {
         data: { emailVerified: new Date() },
       });
     },
+    signIn: async ({ user }) => {
+      console.log("-----------------");
+      console.log(user);
+      console.log("-----------------");
+    }
   },
   callbacks: {
     async signIn({ user }) {
+      console.log("signing in----------------------------------------------");
+      console.log(user);
       const existingUser = user.id ? await getUserById(user.id) : null;
 
       if (!existingUser?.emailVerified) return false;
@@ -56,7 +63,6 @@ export const {
     },
     async jwt({ token }) {
       if (!token.sub) return token;
-
       const existingUser = await getUserById(token.sub);
 
       if (!existingUser) return token;

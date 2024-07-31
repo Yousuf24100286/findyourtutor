@@ -13,6 +13,7 @@ import { generateVerificationToken } from "@/lib/tokens";
 export const login = async (values: z.infer<typeof LoginSchema>) => {
   const validatedFields = LoginSchema.safeParse(values);
 
+  console.log(validatedFields);
   if (!validatedFields.success) {
     return { error: "Invalid fields!" };
   }
@@ -39,12 +40,15 @@ export const login = async (values: z.infer<typeof LoginSchema>) => {
   }
 
   try {
+
+    console.log("signing in");
     await signIn("credentials", {
       email,
       password,
       redirectTo: DEFAULT_LOGIN_REDIRECT,
     });
   } catch (error) {
+    console.log(error);
     if (error instanceof AuthError) {
       switch (error.type) {
         case "CredentialsSignin":
