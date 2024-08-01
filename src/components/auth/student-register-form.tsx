@@ -34,7 +34,7 @@ export const StudentRegisterForm = ({ group }: { group: 'SELF' | 'PARENT' }) => 
       password: "",
       role: "STUDENT",
       group,
-      termsAndConditions: 0,
+      termsAndConditions: false,
     },
   });
 
@@ -143,12 +143,19 @@ export const StudentRegisterForm = ({ group }: { group: 'SELF' | 'PARENT' }) => 
           control={form.control}
           name="termsAndConditions"
           render={({ field }) => (
-            <FormItem>
+            <FormItem
+              className="inline-flex items-center justify-start gap-2"
+            >
               <FormControl>
-                <Checkbox {...field} onCheckedChange={(checked) => form.setValue('termsAndConditions', checked ? 1 : 0)} />
+                <Checkbox {...field} 
+                  checked={field.value}
+                  onCheckedChange={field.onChange}
+                  value={field.value?.toString()}
+                  disabled={field.disabled}   
+                />
               </FormControl>
-              <FormLabel>
-                Remember Me
+              <FormLabel className="h-full">
+                <P>I agree to the <Link href="/terms-and-conditions">Terms and Conditions</Link></P>
               </FormLabel>
               <FormMessage />
             </FormItem>
