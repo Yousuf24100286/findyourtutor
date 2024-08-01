@@ -1,21 +1,12 @@
-'use client'
+'use client';
 
-import { Button } from "@/components/ui/button";
-import { LoginButton } from "@/components/auth/login-button";
-import { useSession } from "next-auth/react";
-import { P } from "@/components/Typography";
-
+import { useCurrentUser } from "@/hooks/use-current-user";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
-  const { data: session } = useSession();
-  return (
-    <LoginButton asChild>
-      <Button variant="secondary" size="lg">
-        Sign in
-      </Button>
-      <P>
-        {session ? JSON.stringify(session) : "You're not signed in"}
-      </P>
-    </LoginButton>
-  )
+  const user = useCurrentUser();
+  const router = useRouter();
+
+  if (user) router.push('/dashboard');
+  else router.push('/auth/login');
 }

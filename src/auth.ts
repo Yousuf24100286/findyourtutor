@@ -40,9 +40,9 @@ export const {
   },
   callbacks: {
     async signIn({ user }) {
-      console.log("signing in----------------------------------------------");
-      console.log(user);
-      const existingUser = user.id ? await getUserById(user.id) : null;
+      if (!user.id) return false;
+
+      const existingUser = await getUserById(user.id);
 
       if (!existingUser?.emailVerified) return false;
 
