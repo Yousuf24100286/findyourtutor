@@ -12,12 +12,10 @@ const config = {
   ],
   prefix: "",
   theme: {
-    container: {
-      center: true,
-      padding: "2rem",
-      screens: {
-        "2xl": "1400px",
-      },
+    screens: {
+      sm: "390px",
+      md: "770px",
+      lg: "1140px",
     },
     extend: {
       // custom
