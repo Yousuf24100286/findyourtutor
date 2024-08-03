@@ -18,9 +18,7 @@ const config = {
       lg: "1140px",
     },
     extend: {
-      // custom
       textColor: {
-        primary: "#040921",
         secondary: "#04092160",
         disabled: "#04092132",
       },
@@ -38,24 +36,17 @@ const config = {
       // shadcn-ui
       colors: {
         // custom
-        "burnt-sienna": {
-          DEFAULT: "#EB7547",
-          "500": "#EB7547",
-          "600": "#FF5E2B",
-        },
         "prussian-blue": {
           DEFAULT: "#023047",
         },
-        link: {
-          DEFAULT: "#0C5DFF",
-        },
-        success: "#499F68",
-        warning: "#DD5147",
 
         // shadcn-ui
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
+        link: "hsl(var(--link))",
+        success: "hsl(var(--success))",
+        warning: "hsl(var(--warning))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         primary: {
