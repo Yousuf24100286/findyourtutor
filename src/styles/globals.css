@@ -4,17 +4,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* :root {
-  box-sizing: border-box;
-}
-
-body {
-  max-width: 1140px;
-  margin: 0 auto;
-  min-height: 100vh;
-  background-color: #f9f2e0;
-} */
-
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -74,10 +63,12 @@ body {
 
 @layer base {
   * {
+    box-sizing: border-box;
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    font-size: 16px;
+    @apply bg-background text-foreground max-w-screen-lg mx-auto min-h-screen text-base;
   }
   a {
     @apply font-medium text-link hover:underline;
