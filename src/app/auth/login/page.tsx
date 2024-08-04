@@ -22,10 +22,10 @@ const LoginPage = () => {
           <div className="flex flex-col items-center bg-white min-w-96 rounded-lg gap-6 py-6 px-10">
             <H1>Log In</H1>
             <LoginForm />
-            <Muted className="w-full">Done have an account? <Link href='/auth/register'>Sign Up</Link></Muted>
+            <Muted className="w-full">Don&apos;t have an account? <Link href='/auth/register'>Sign Up</Link></Muted>
           </div >
         </div >
-        <Muted className='text-center lg:w-[50%]'>If you are having trouble loggin in, email us at <Link href='mailto:contact@findyourtutor.co.uk'>contact@findyourtutor.co.uk</Link> or <Link href='/contact-us'>contact us</Link>.</Muted>
+        <Muted className='text-center lg:w-[50%]'>If you are having trouble logging in, email us at <Link href='mailto:contact@findyourtutor.co.uk'>contact@findyourtutor.co.uk</Link> or <Link href='/contact-us'>contact us</Link>.</Muted>
       </div>
     </React.Fragment>
   );

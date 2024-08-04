@@ -12,7 +12,7 @@ export const ResetSchema = z.object({
 export const LoginSchema = z.object({
   email: z.string().email({ message: "Email is required" }),
   password: z.string().min(1, { message: "Password is required" }),
-  rememberMe: z.number().optional(),
+  rememberMe: z.boolean().optional(),
 });
 
 export const RegisterSchema = z.object({
@@ -21,7 +21,7 @@ export const RegisterSchema = z.object({
   password: z.string().min(8, { message: "Minimum 8 characters required" }),
   role: z.nativeEnum(UserRole),
   group: z.nativeEnum(UserGroup),
-  termsAndConditions: z.boolean()
+  termsAndConditions: z.boolean().refine((val) => val === true, { message: "Please accept the terms and conditions" }),
 });
 
 export const TutorRegisterSchema = RegisterSchema.extend({
