@@ -42,12 +42,14 @@ export const StudentRegisterForm = ({ group }: { group: 'SELF' | 'PARENT' }) => 
     startTransition(() => {
       register(values)
         .then((data) => {
-          if (data.error) toast.error(data.error);
-          if (data.success) toast.success(data.success);
+          if (data.error) {
+            toast.error(data.error);
+          }
+          if (data.success) {
+            toast.success(data.success);
+            form.reset();
+          } 
         })
-        .finally(() => {
-          form.reset();
-        });
     });
   };
 
@@ -106,7 +108,7 @@ export const StudentRegisterForm = ({ group }: { group: 'SELF' | 'PARENT' }) => 
               <FormControl>
                 <div className="relative">
                   <Input type={passwordVisible == true ? 'text' : 'password'} placeholder="Password" {...field} />
-                  <button className="material-symbols-outlined scale-75 m-1 absolute top-0 -right-0"
+                  <button className="material-symbols-outlined m-2 absolute top-0 -right-0"
                     onClick={() => setPasswordVisible(!passwordVisible)}
                   >
                     {passwordVisible == true ? 'visibility' : 'visibility_off'}
@@ -143,20 +145,18 @@ export const StudentRegisterForm = ({ group }: { group: 'SELF' | 'PARENT' }) => 
           control={form.control}
           name="termsAndConditions"
           render={({ field }) => (
-            <FormItem
-              className="inline-flex items-center justify-start gap-2"
-            >
+            <FormItem>
               <FormControl>
-                <Checkbox {...field} 
-                  checked={field.value}
-                  onCheckedChange={field.onChange}
-                  value={field.value?.toString()}
-                  disabled={field.disabled}   
-                />
+                <div  className="inline-flex items-center justify-start gap-1">
+                  <Checkbox {...field} 
+                    checked={field.value}
+                    onCheckedChange={field.onChange}
+                    value={field.value?.toString()}
+                    disabled={field.disabled}
+                  />
+                  <Disabled>You agree to our <Link href="/terms-and-conditions">Terms of Service</Link> and <Link href='/privacy-policy'>Privacy Policy</Link></Disabled>
+                </div>
               </FormControl>
-              <FormLabel className="">
-                <Disabled>You agree to our <Link href="/terms-and-conditions">Terms of Service</Link> and <Link href='/privacy-policy'>Privacy Policy</Link></Disabled>
-              </FormLabel>
               <FormMessage />
             </FormItem>
           )}
