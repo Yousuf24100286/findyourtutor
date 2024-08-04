@@ -59,7 +59,7 @@ export const TutorRegisterForm = ({ group }: { group: 'ENROLLED' | 'GRADUATED' }
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="w-full flex flex-col gap-6"
+        className="w-full flex flex-col gap-8"
       >
         <FormField
           control={form.control}
@@ -142,7 +142,7 @@ export const TutorRegisterForm = ({ group }: { group: 'ENROLLED' | 'GRADUATED' }
           control={form.control}
           name="role"
           render={({ field }) => (
-            <FormItem>
+            <FormItem className="hidden">
               <FormControl>
                 <Input type="hidden" {...field} />
               </FormControl>
@@ -165,7 +165,7 @@ export const TutorRegisterForm = ({ group }: { group: 'ENROLLED' | 'GRADUATED' }
                 />
               </FormControl>
               <FormLabel className="h-full">
-                <P>I agree to the <Link href="/terms-and-conditions">Terms and Conditions</Link></P>
+                <P>You agree to our <Link href="/terms-and-conditions">Terms of Service</Link> and <Link href='/privacy-policy'>Privacy Policy</Link></P>
               </FormLabel>
               <FormMessage />
             </FormItem>
