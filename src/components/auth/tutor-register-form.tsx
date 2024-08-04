@@ -157,14 +157,15 @@ export const TutorRegisterForm = ({ group }: { group: 'ENROLLED' | 'GRADUATED' }
           render={({ field }) => (
             <FormItem>
               <FormControl>
-                <div className="inline-flex items-center justify-start gap-1">
+                <div className="inline-flex items-start justify-start">
                   <Checkbox {...field} 
                     checked={field.value}
                     onCheckedChange={field.onChange}
                     value={field.value?.toString()}
                     disabled={field.disabled}
+                    className="m-1"
                   />
-                  <Disabled>You agree to our <Link href="/terms-and-conditions">Terms of Service</Link> and <Link href='/privacy-policy'>Privacy Policy</Link></Disabled>
+                  <Disabled className="">You agree to our <Link href="/terms-and-conditions">Terms of Service</Link> and <Link href='/privacy-policy'>Privacy Policy</Link></Disabled>
                 </div>
               </FormControl>
               <FormMessage />

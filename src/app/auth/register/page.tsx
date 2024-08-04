@@ -44,7 +44,7 @@ const RoleSelectionCards = async () => {
 
 const SignUpCard = async ({ role, group }: Readonly<TUserRoleGroupCombination>) => (
   <div className='flex flex-row justify-center lg:w-[50%]'>
-    <div className="flex flex-col items-center bg-white rounded-lg gap-6 py-6 px-10">
+    <div className="flex flex-col items-center max-w-md bg-white rounded-lg gap-6 py-6 px-10">
       <div className="flex items-center">
         <H2>Sign Up</H2>
         <H2>&nbsp;|&nbsp;</H2>
