@@ -90,8 +90,14 @@ export function Large({ children, className }: TypographyProps) {
 
   export function Muted({ children, className }: TypographyProps) {
     return (
-      <p className={cn("text-secondary font-normal", className)}>{children}</p>
+      <p className={cn("text-muted font-normal", className)}>{children}</p>
     );
-  } 
+  }
+
+  export function Disabled({ children, className }: TypographyProps) {
+    return (
+      <p className={cn("text-disabled font-normal", className)}>{children}</p>
+    );
+  }
 
   
