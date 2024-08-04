@@ -18,10 +18,6 @@ const config = {
       lg: "1140px",
     },
     extend: {
-      textColor: {
-        secondary: "#04092160",
-        disabled: "#04092132",
-      },
       container: {
         center: true,
       },
@@ -47,6 +43,7 @@ const config = {
         link: "hsl(var(--link))",
         success: "hsl(var(--success))",
         warning: "hsl(var(--warning))",
+        disabled: "hsl(var(--disabled))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         primary: {
