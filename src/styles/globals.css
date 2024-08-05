@@ -72,7 +72,7 @@
   }
   body {
     font-size: 16px;
-    @apply bg-background text-foreground max-w-screen-lg mx-auto min-h-screen text-base;
+    @apply bg-background text-foreground 
   }
   a {
     @apply font-medium text-link hover:underline;

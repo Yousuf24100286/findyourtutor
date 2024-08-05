@@ -25,6 +25,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
+import { SelectGroup } from "@radix-ui/react-select";
 
 export const TutorRegisterForm = ({ group }: { group: 'ENROLLED' | 'GRADUATED' }) => {
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -35,6 +36,7 @@ export const TutorRegisterForm = ({ group }: { group: 'ENROLLED' | 'GRADUATED' }
     defaultValues: {
       name: "",
       email: "",
+      university: "",
       password: "",
       role: 'TUTOR',
       group,
@@ -99,6 +101,32 @@ export const TutorRegisterForm = ({ group }: { group: 'ENROLLED' | 'GRADUATED' }
                   disabled={isPending}
                   placeholder="John Doe"
                 />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="university"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>University</FormLabel>
+              <FormControl>
+                <Select 
+                  {...field}
+                  onValueChange={(value) => form.setValue('university', value)}
+                >
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="Select University" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectGroup>
+                      <SelectItem value="University of Ibadan" >University of Ibadan</SelectItem>
+                      <SelectItem value="University of Petroleum Resources">University of Petroleum Resources</SelectItem>
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
               </FormControl>
               <FormMessage />
             </FormItem>
