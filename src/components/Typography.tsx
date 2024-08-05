@@ -26,18 +26,15 @@ export const H2 = ({ children, className }: TypographyProps) =>
     {children}
   </h2>;
 
-export const H3 = ({ children, className }: TypographyProps) => {
-  return (
-    <h3
-      className={cn(
-        "text-2xl font-semibold tracking-[-0.009rem]", // 24px -> 1.5rem * 0.6% = 0.009rem
-        className
-      )}
-    >
-      {children}
-    </h3>
-  );
-}
+export const H3 = ({ children, className }: TypographyProps) => 
+  <h3
+    className={cn(
+      "text-2xl font-semibold tracking-[-0.009rem]", // 24px -> 1.5rem * 0.6% = 0.009rem
+      className
+    )}
+  >
+    {children}
+  </h3>;
 
 export const H4 = ({ children, className }: TypographyProps) => 
   <h4
