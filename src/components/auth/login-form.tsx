@@ -32,6 +32,7 @@ export const LoginForm = () => {
     defaultValues: {
       email: "",
       password: "",
+      rememberMe: false,
     },
   });
 
@@ -94,12 +95,15 @@ export const LoginForm = () => {
           render={({ field }) => (
             <FormItem>
               <FormControl>
-                <div className="flex gap-2">
-                  <Checkbox {...field} onCheckedChange={(checked) => form.setValue('rememberMe', checked ? 1 : 0)} />
-                  <FormLabel>
-                    Remember Me
-                  </FormLabel>
-                </div>
+              <div className="inline-flex items-center justify-start gap-1">
+                <Checkbox {...field} 
+                    checked={field.value}
+                    onCheckedChange={field.onChange}
+                    value={field.value?.toString()}
+                    disabled={field.disabled}
+                  />
+                <P>Remember Me</P> 
+              </div>
               </FormControl>
               <FormMessage />
             </FormItem>
