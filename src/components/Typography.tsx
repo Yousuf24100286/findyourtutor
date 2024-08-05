@@ -6,24 +6,22 @@ type TypographyProps = {
   className?: string;
 };
 
-export function H1({ children, className }: TypographyProps) {
-  return (
-    <h1
-      className={cn(
-        "scroll-m-20 text-4xl font-extrabold tracking-tight",
-        className
-      )}
-    >
-      {children}
-    </h1>
-  );
-}
+export const H1 = ({ children, className }: TypographyProps) => (
+  <h1
+    className={cn(
+      "text-5xl leading-12 font-extrabold tracking-[-0.036rem]",
+      className
+    )}
+  >
+    {children}
+  </h1>
+);
 
-export function H2({ children, className }: TypographyProps) {
+export const H2 = ({ children, className }: TypographyProps) => {
   return (
     <h2
       className={cn(
-        "scroll-m-20 text-3xl font-semibold tracking-tight first:mt-0",
+        "text-3xl font-semibold tracking-[-0.0140625rem]",
         className
       )}
     >
@@ -32,11 +30,11 @@ export function H2({ children, className }: TypographyProps) {
   );
 }
 
-export function H3({ children, className }: TypographyProps) {
+export const H3 = ({ children, className }: TypographyProps) => {
   return (
     <h3
       className={cn(
-        "scroll-m-20 text-2xl font-semibold tracking-tight",
+        "text-2xl font-semibold tracking-[-0.009rem]", // 24px -> 1.5rem * 0.6% = 0.009rem
         className
       )}
     >
@@ -45,11 +43,11 @@ export function H3({ children, className }: TypographyProps) {
   );
 }
 
-export function H4({ children, className }: TypographyProps) {
+export const H4 = ({ children, className }: TypographyProps) => {
   return (
     <h4
       className={cn(
-        "scroll-m-20 text-xl font-semibold tracking-tight",
+        "text-xl font-semibold tracking-[-0.00625rem]", // 20px -> 1.25rem * 0.5% = 0.00625rem
         className
       )}
     >
@@ -58,8 +56,8 @@ export function H4({ children, className }: TypographyProps) {
   );
 }
 
-export function P({ children, className }: TypographyProps) {
-  return <p className={cn("leading-7", className)}>{children}</p>;
+export const P = ({ children, className }: TypographyProps) => {
+  return <p className={cn("text-base leading-7 font-normal tracking-normal", className)}>{children}</p>;
 }
 
 export function Blockquote({ children, className }: TypographyProps) {
