@@ -4,6 +4,7 @@ import * as z from "zod";
 import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { cn } from "@/lib/utils"
 
 import Link from "next/link";
 
@@ -22,14 +23,47 @@ import { register } from "@/actions/register";
 import { toast } from "sonner";
 import { Disabled, P } from "@/components/Typography";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
-import { SelectGroup } from "@radix-ui/react-select";
+import { Check, ChevronsUpDown } from "lucide-react"
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command"
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover"
 
 export const TutorRegisterForm = ({ group }: { group: 'ENROLLED' | 'GRADUATED' }) => {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [isPending, startTransition] = useTransition();
+
+  const universitiesList: {
+    value: string;
+    label: string;
+  }[] = [
+    {
+      value: "university1",
+      label: "University 1",
+    },
+    {
+      value: "university2",
+      label: "University 2",
+    },
+    {
+      value: "university3",
+      label: "University 3",
+    }
+  ]
+
+  const [open, setOpen] = useState(false)
+  const [value, setValue] = useState("")
 
   const form = useForm<z.infer<typeof TutorRegisterSchema>>({
     resolver: zodResolver(TutorRegisterSchema),
@@ -113,20 +147,53 @@ export const TutorRegisterForm = ({ group }: { group: 'ENROLLED' | 'GRADUATED' }
             <FormItem>
               <FormLabel>University</FormLabel>
               <FormControl>
-                <Select 
-                  {...field}
-                  onValueChange={(value) => form.setValue('university', value)}
-                >
-                  <SelectTrigger className="w-full">
-                    <SelectValue placeholder="Select University" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectGroup>
-                      <SelectItem value="University of Ibadan" >University of Ibadan</SelectItem>
-                      <SelectItem value="University of Petroleum Resources">University of Petroleum Resources</SelectItem>
-                    </SelectGroup>
-                  </SelectContent>
-                </Select>
+                <div>
+                  <Popover open={open} onOpenChange={setOpen}>
+                    <PopoverTrigger asChild
+                      className="w-full"
+                    >
+                      <Button
+                        variant="outline"
+                        role="combobox"
+                        aria-expanded={open}
+                        className={`flex justify-between h-10 w-full rounded-md border border-border px-4 py-2 bg-transparent hover:bg-transparent text-base font-normal focus-visible:ring-2 focus-visible:ring-success focus-visible:ring-offset-2 focus-visible:ring-offset-white ${value ? "text-text-primary hover:text-text-primary" : "text-text-placeholder hover:text-text-placeholder"}`}
+                      >
+                        {value
+                          ? universitiesList.find((university) => university.value === value)?.label
+                          : "Select university..."}
+                        <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="p-0">
+                      <Command>
+                        <CommandInput placeholder="Search university..." />
+                        <CommandList>
+                          <CommandEmpty>No university found.</CommandEmpty>
+                          <CommandGroup>
+                            {universitiesList.map((university) => (
+                              <CommandItem
+                                key={university.value}
+                                value={university.value}
+                                onSelect={(currentValue) => {
+                                  setValue(currentValue === value ? "" : currentValue)
+                                  setOpen(false)
+                                }}
+                              >
+                                <Check
+                                  className={cn(
+                                    "mr-2 h-4 w-4",
+                                    value === university.value ? "opacity-100" : "opacity-0"
+                                  )}
+                                />
+                                {university.label}
+                              </CommandItem>
+                            ))}
+                          </CommandGroup>
+                        </CommandList>
+                      </Command>
+                    </PopoverContent>
+                  </Popover>
+                </div>
               </FormControl>
               <FormMessage />
             </FormItem>
