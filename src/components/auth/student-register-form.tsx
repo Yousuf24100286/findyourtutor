@@ -69,7 +69,7 @@ export const StudentRegisterForm = ({ group }: { group: 'SELF' | 'PARENT' }) => 
                 <Input
                   {...field}
                   disabled={isPending}
-                  placeholder="John Doe"
+                  placeholder="Name"
                 />
               </FormControl>
               <FormMessage />

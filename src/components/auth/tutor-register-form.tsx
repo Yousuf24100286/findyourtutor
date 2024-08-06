@@ -160,7 +160,7 @@ export const TutorRegisterForm = ({ group }: { group: 'ENROLLED' | 'GRADUATED' }
                 <Input
                   {...field}
                   disabled={isPending}
-                  placeholder="John Doe"
+                  placeholder="Name"
                 />
               </FormControl>
               <FormMessage />

@@ -22,7 +22,15 @@ import { toast } from "sonner";
 
 import { P, Subtle } from "@/components/Typography";
 import { Checkbox } from "../ui/checkbox";
-
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
+import { ResetForm } from "./reset-form";
 
 export const LoginForm = () => {
   const [isPending, startTransition] = useTransition();
@@ -80,7 +88,17 @@ export const LoginForm = () => {
             <FormItem>
               <FormLabel className="w-full inline-flex justify-between">
                 Password
-                <Link href="/auth/reset">Forgot Password</Link>
+                <Dialog>
+                  <DialogTrigger className="font-normal text-link hover:underline">
+                    Forgot Password
+                  </DialogTrigger>
+                  <DialogContent>
+                    <DialogHeader>
+                      <ResetForm />
+                    </DialogHeader>
+                  </DialogContent>
+                </Dialog>
+                
               </FormLabel>
               <FormControl>
                 <Input type="password" placeholder="Password" {...field} />
