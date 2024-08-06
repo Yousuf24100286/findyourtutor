@@ -53,7 +53,7 @@ const config = {
           disabled: '#04092132',
           placeholder: '#B3B3B3',
         },
-        border: '#04092160',
+        border: '#04092132',
         primary: {
           DEFAULT: "#EB7547",
           foreground: "#FFFFFF",
