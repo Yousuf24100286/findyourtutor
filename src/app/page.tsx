@@ -22,7 +22,15 @@ export default async function Home() {
       {
         session && <>
           Welcome {session.user.email}
-          <Button onClick={() => signOut()}>Logout</Button>
+          <form
+            action={async () => {
+              'use server'
+              await signOut()
+            }}
+          >
+
+            <Button type="submit">Logout</Button>
+          </form>
         </>
       }
     </>
