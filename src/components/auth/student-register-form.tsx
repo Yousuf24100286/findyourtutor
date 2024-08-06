@@ -86,7 +86,7 @@ export const StudentRegisterForm = ({ group }: { group: 'SELF' | 'PARENT' }) => 
                 <Input
                   {...field}
                   disabled={isPending}
-                  placeholder="john.doe@example.com"
+                  placeholder="Email"
                   type="email"
                 />
               </FormControl>

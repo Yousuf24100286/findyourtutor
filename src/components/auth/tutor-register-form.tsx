@@ -59,17 +59,9 @@ export const TutorRegisterForm = ({ group }: { group: 'ENROLLED' | 'GRADUATED' }
       domain: "",
     },
     {
-      name: "university1",
-      domain: "@university1.com",
+      name: "Lahore University of Management Sciences",
+      domain: "@lums.edu.pk",
     },
-    {
-      name: "university2",
-      domain: "@university2.com",
-    },
-    {
-      name: "university3",
-      domain: "@university3.com",
-    }
   ]
 
 
@@ -139,11 +131,11 @@ export const TutorRegisterForm = ({ group }: { group: 'ENROLLED' | 'GRADUATED' }
                 >
                   <div className="inline-flex gap-2">
                     <RadioGroupItem value="ENROLLED" />
-                    <Label>Enrolled</Label>
+                    <Label>Currently Enrolled</Label>
                   </div>
                   <div className="inline-flex gap-2">
                     <RadioGroupItem value="GRADUATED" />
-                    <Label>Graduate</Label>
+                    <Label>Alumni</Label>
                   </div>
                 </RadioGroup>
               </FormControl>
@@ -180,7 +172,7 @@ export const TutorRegisterForm = ({ group }: { group: 'ENROLLED' | 'GRADUATED' }
                       <span className="material-symbols-outlined scale-75 text-text-secondary">info</span>
                     </TooltipTrigger>
                     <TooltipContent>
-                      <Subtle className='text-text-secondary'>If your university does not provide an email with the university domain, select &lsquo;not applicable&rsquo; from the drop-down menu.</Subtle>
+                      <Subtle className='text-text-secondary max-w-xs '>If your university does not provide an email with the university domain, select &lsquo;not applicable&rsquo; from the drop-down menu.</Subtle>
                     </TooltipContent>
                   </Tooltip>
                 </TooltipProvider>
@@ -195,12 +187,14 @@ export const TutorRegisterForm = ({ group }: { group: 'ENROLLED' | 'GRADUATED' }
                         variant="outline"
                         role="combobox"
                         aria-expanded={openDropDown}
-                        className={`flex justify-between h-10 w-full rounded-md border border-border px-4 py-2 bg-transparent hover:bg-transparent text-base font-normal focus-visible:ring-2 focus-visible:ring-success focus-visible:ring-offset-2 focus-visible:ring-offset-white ${universityState ? "text-text-primary hover:text-text-primary" : "text-text-placeholder hover:text-text-placeholder"}`}
+                        className={`flex justify-between h-10 w-full rounded-md border border-border px-4 py-2 bg-transparent text-text-primary/75 text-sm leading-4 font-normal hover:bg-transparent focus-visible:ring-2 focus-visible:ring-success focus-visible:ring-offset-2 focus-visible:ring-offset-white ${universityState ? "text-text-primary/75 hover:text-text-primary/75" : "text-text-placeholder hover:text-text-placeholder"}`}
                         disabled={groupState === 'GRADUATED'}
                       >
-                        {universityState
-                          ? universitiesList.find((university) => university.name === universityState.name)?.name
-                          : "Select university..."}
+                        <span className="max-w-80 overflow-hidden">
+                          {universityState
+                            ? universitiesList.find((university) => university.name === universityState.name)?.name
+                            : "Select university..."}
+                        </span>
                         <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                       </Button>
                     </PopoverTrigger>
@@ -265,8 +259,8 @@ export const TutorRegisterForm = ({ group }: { group: 'ENROLLED' | 'GRADUATED' }
                     
                     className={`${domainState ? 'pe-40': ''}`}
                   />
-                  <span className="my-2 mx-4 max-w-36 overflow-hidden absolute top-0 -right-0">
-                    <P>{domainState ? domainState : null}</P>
+                  <span className="my-3 mx-4 max-w-36 overflow-hidden absolute top-0 -right-0 ">
+                    <P className="text-text-primary/75 text-sm leading-4 font-normal">{domainState ? domainState : null}</P>
                   </span>
                 </div>
               </FormControl>
@@ -313,7 +307,7 @@ export const TutorRegisterForm = ({ group }: { group: 'ENROLLED' | 'GRADUATED' }
           render={({ field }) => (
             <FormItem>
               <FormControl>
-                <div className="inline-flex items-start justify-start gap-1">
+                <div className="inline-flex items-start justify-start gap-2">
                   <Checkbox {...field} 
                     checked={field.value}
                     onCheckedChange={field.onChange}
