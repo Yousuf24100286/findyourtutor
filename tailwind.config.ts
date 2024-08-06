@@ -57,6 +57,7 @@ const config = {
         primary: {
           DEFAULT: "#EB7547",
           foreground: "#FFFFFF",
+          hover: "#FF5E2B",
         },
 
         // shadcn-ui
