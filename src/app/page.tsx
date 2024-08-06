@@ -1,10 +1,10 @@
 import { H1, H2, H3, H4, P } from "@/components/Typography";
 import { Button } from "@/components/ui/button";
-import { useCurrentUser } from "@/hooks/use-current-user";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { auth, signOut } from "@/auth";
 
-export default function Home() {
+export default async function Home() {
+  const session = await auth();
   return (
     <>
       <H1>Rag 123</H1>
@@ -18,7 +18,13 @@ export default function Home() {
     
       
       <Link href="/auth/login"><Button>Login</Button></Link>
-      <Link href="/auth/register">Register</Link>
+      <Link href="/auth/register"><Button>Register</Button></Link>
+      {
+        session && <>
+          Welcome {session.user.email}
+          <Button onClick={() => signOut()}>Logout</Button>
+        </>
+      }
     </>
   )
 
