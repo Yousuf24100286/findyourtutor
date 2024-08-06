@@ -55,7 +55,7 @@ export const TutorRegisterForm = ({ group }: { group: 'ENROLLED' | 'GRADUATED' }
     domain: string;
   }[] = [
     {
-      name: "not applicable",
+      name: "-- Not Applicable --",
       domain: "",
     },
     {
