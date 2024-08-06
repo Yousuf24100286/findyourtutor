@@ -6,7 +6,7 @@ export const AuthHeader = () => {
   return (
     <header className="flex items-center justify-between w-full">
       <Link href="/" className="flex w-max">
-        <Image src="/FYT-logo.png" alt="tutoring company logo" width={60} height={60} />
+        <Image src="/fyt-logo.svg" alt="tutoring company logo" width={60} height={60}/>
       </Link>
       <Link href="/">Go back</Link>
     </header>

@@ -2,7 +2,7 @@
 
 import * as z from "zod";
 import { useForm } from "react-hook-form";
-import { useTransition } from "react";
+import { useState, useTransition } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 
@@ -20,12 +20,21 @@ import { Button } from "@/components/ui/button";
 import { login } from "@/actions/login";
 import { toast } from "sonner";
 
-import { P } from "@/components/Typography";
+import { P, Subtle } from "@/components/Typography";
 import { Checkbox } from "../ui/checkbox";
-
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
+import { ResetForm } from "./reset-form";
 
 export const LoginForm = () => {
   const [isPending, startTransition] = useTransition();
+  const [passwordVisible, setPasswordVisible] = useState(false);
 
   const form = useForm<z.infer<typeof LoginSchema>>({
     resolver: zodResolver(LoginSchema),
@@ -67,7 +76,7 @@ export const LoginForm = () => {
             <FormItem>
               <FormLabel>Email</FormLabel>
               <FormControl>
-                <Input placeholder="shadcn" {...field} />
+                <Input placeholder="Email" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -79,11 +88,30 @@ export const LoginForm = () => {
           render={({ field }) => (
             <FormItem>
               <FormLabel className="w-full inline-flex justify-between">
-                <P>Password</P>
-                <Link href="/auth/reset"><P>Forgot Password</P></Link>
+                Password
+                <Dialog>
+                  <DialogTrigger className="font-normal text-link hover:underline">
+                    Forgot Password
+                  </DialogTrigger>
+                  <DialogContent>
+                    <DialogHeader>
+                      <ResetForm />
+                    </DialogHeader>
+                  </DialogContent>
+                </Dialog>
+                
               </FormLabel>
               <FormControl>
-                <Input type="password" {...field} />
+                <div className="relative">
+                  <Input type={passwordVisible == true ? 'text' : 'password'} className="pe-12" placeholder="Password" {...field} />
+                  <button className="material-symbols-outlined my-2 mx-4 absolute top-0 -right-0"
+                    onClick={() => setPasswordVisible(!passwordVisible)}
+                  >
+                    {passwordVisible == true ? 'visibility' : 'visibility_off'}
+                  </button>
+                </div>
+
+                {/* <Input type="password" placeholder="Password" {...field} /> */}
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -95,15 +123,19 @@ export const LoginForm = () => {
           render={({ field }) => (
             <FormItem>
               <FormControl>
-              <div className="inline-flex items-center justify-start gap-1">
-                <Checkbox {...field} 
-                    checked={field.value}
-                    onCheckedChange={field.onChange}
-                    value={field.value?.toString()}
-                    disabled={field.disabled}
-                  />
-                <P>Remember Me</P> 
-              </div>
+                <div className="inline-flex items-start justify-start gap-2">
+                  <Checkbox {...field} 
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                      value={field.value?.toString()}
+                      disabled={field.disabled}
+                      className="my-1"
+                    />
+                  <div>
+                    <P className="leading-none">Remember Me</P>
+                    <Subtle className="text-text-disabled">Check this box keeps you logged in</Subtle>
+                  </div>
+                </div>
               </FormControl>
               <FormMessage />
             </FormItem>
