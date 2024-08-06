@@ -2,7 +2,7 @@
 
 import * as z from "zod";
 import { useForm } from "react-hook-form";
-import { useTransition } from "react";
+import { useState, useTransition } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 
@@ -34,6 +34,7 @@ import { ResetForm } from "./reset-form";
 
 export const LoginForm = () => {
   const [isPending, startTransition] = useTransition();
+  const [passwordVisible, setPasswordVisible] = useState(false);
 
   const form = useForm<z.infer<typeof LoginSchema>>({
     resolver: zodResolver(LoginSchema),
@@ -101,7 +102,16 @@ export const LoginForm = () => {
                 
               </FormLabel>
               <FormControl>
-                <Input type="password" placeholder="Password" {...field} />
+                <div className="relative">
+                  <Input type={passwordVisible == true ? 'text' : 'password'} className="pe-12" placeholder="Password" {...field} />
+                  <button className="material-symbols-outlined my-2 mx-4 absolute top-0 -right-0"
+                    onClick={() => setPasswordVisible(!passwordVisible)}
+                  >
+                    {passwordVisible == true ? 'visibility' : 'visibility_off'}
+                  </button>
+                </div>
+
+                {/* <Input type="password" placeholder="Password" {...field} /> */}
               </FormControl>
               <FormMessage />
             </FormItem>
