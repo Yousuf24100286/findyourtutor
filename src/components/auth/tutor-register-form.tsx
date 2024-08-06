@@ -1,9 +1,10 @@
 "use client";
 
 import * as z from "zod";
-import { useState, useTransition } from "react";
+import { useEffect, useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { cn } from "@/lib/utils"
 
 import Link from "next/link";
 
@@ -20,21 +21,56 @@ import {
 import { Button } from "@/components/ui/button";
 import { register } from "@/actions/register";
 import { toast } from "sonner";
-import { Disabled, P } from "@/components/Typography";
+import { Disabled, P, Subtle } from "@/components/Typography";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
+import { Check, ChevronsUpDown } from "lucide-react"
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command"
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover"
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
 
 export const TutorRegisterForm = ({ group }: { group: 'ENROLLED' | 'GRADUATED' }) => {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [isPending, startTransition] = useTransition();
+
+  const universitiesList: {
+    name: string;
+    domain: string;
+  }[] = [
+    {
+      name: "-- Not Applicable --",
+      domain: "",
+    },
+    {
+      name: "Lahore University of Management Sciences",
+      domain: "@lums.edu.pk",
+    },
+  ]
+
 
   const form = useForm<z.infer<typeof TutorRegisterSchema>>({
     resolver: zodResolver(TutorRegisterSchema),
     defaultValues: {
       name: "",
       email: "",
+      university: "",
       password: "",
       role: 'TUTOR',
       group,
@@ -42,6 +78,16 @@ export const TutorRegisterForm = ({ group }: { group: 'ENROLLED' | 'GRADUATED' }
     },
   });
 
+  const [openDropDown, setOpenDropDown] = useState(false)
+  const [universityState, setUniversityState] = useState<{
+    name: string;
+    domain: string
+  } | undefined>(undefined)
+  const [groupState, setGroupState] = useState(group)
+  const [domainState, setDomainState] = useState('')
+  const [emailState, setEmailState] = useState('')
+
+  
   const onSubmit = (values: z.infer<typeof TutorRegisterSchema>) => {
     startTransition(() => {
       register(values)
@@ -51,7 +97,6 @@ export const TutorRegisterForm = ({ group }: { group: 'ENROLLED' | 'GRADUATED' }
           }
           if (data.success) {
             toast.success(data.success);
-            form.reset();
           }
         })
     });
@@ -60,7 +105,11 @@ export const TutorRegisterForm = ({ group }: { group: 'ENROLLED' | 'GRADUATED' }
   return (
     <Form {...form}>
       <form
-        onSubmit={form.handleSubmit(onSubmit)}
+        onSubmit={(e) => {
+          e.preventDefault();
+          console.log(form.getValues())
+          form.handleSubmit(onSubmit)();
+        }}
         className="w-full flex flex-col gap-8"
       >
         <FormField
@@ -72,15 +121,21 @@ export const TutorRegisterForm = ({ group }: { group: 'ENROLLED' | 'GRADUATED' }
                 <RadioGroup
                   {...field}
                   className="flex flex-col gap-4"
-                  onValueChange={(value: 'ENROLLED' | 'GRADUATED') => form.setValue('group', value)}
+                  onValueChange={(value: 'ENROLLED' | 'GRADUATED') => {
+                    form.setValue('group', value)
+                    setUniversityState(undefined)
+                    setDomainState('')
+                    setEmailState('')
+                    setGroupState(value)
+                  }}
                 >
                   <div className="inline-flex gap-2">
                     <RadioGroupItem value="ENROLLED" />
-                    <Label>Enrolled</Label>
+                    <Label>Currently Enrolled</Label>
                   </div>
                   <div className="inline-flex gap-2">
                     <RadioGroupItem value="GRADUATED" />
-                    <Label>Graduate</Label>
+                    <Label>Alumni</Label>
                   </div>
                 </RadioGroup>
               </FormControl>
@@ -97,8 +152,88 @@ export const TutorRegisterForm = ({ group }: { group: 'ENROLLED' | 'GRADUATED' }
                 <Input
                   {...field}
                   disabled={isPending}
-                  placeholder="John Doe"
+                  placeholder="Name"
                 />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="university"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel className="inline-flex items-center">
+                University
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <span className="material-symbols-outlined scale-75 text-text-secondary">info</span>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <Subtle className='text-text-secondary max-w-xs '>If your university does not provide an email with the university domain, select &lsquo;not applicable&rsquo; from the drop-down menu.</Subtle>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+              </FormLabel>
+              <FormControl>
+                <div>
+                  <Popover open={openDropDown} onOpenChange={setOpenDropDown}>
+                    <PopoverTrigger asChild
+                      className="w-full"
+                    >
+                      <Button
+                        variant="outline"
+                        role="combobox"
+                        aria-expanded={openDropDown}
+                        className={`flex justify-between h-10 w-full rounded-md border border-border px-4 py-2 bg-transparent text-text-primary/75 text-sm leading-4 font-normal hover:bg-transparent focus-visible:ring-2 focus-visible:ring-success focus-visible:ring-offset-2 focus-visible:ring-offset-white ${universityState ? "text-text-primary/75 hover:text-text-primary/75" : "text-text-placeholder hover:text-text-placeholder"}`}
+                        disabled={groupState === 'GRADUATED'}
+                      >
+                        <span className="max-w-80 overflow-hidden">
+                          {universityState
+                            ? universitiesList.find((university) => university.name === universityState.name)?.name
+                            : "Select university..."}
+                        </span>
+                        <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="p-0">
+                      <Command>
+                        <CommandInput placeholder="Search university..." />
+                        <CommandList>
+                          <CommandEmpty>No university found.</CommandEmpty>
+                          <CommandGroup>
+                            {universitiesList.map((university) => (
+                              <CommandItem
+                                key={university.name}
+                                value={university.domain}
+                                onSelect={(currentValue) => {
+                                  const university = universitiesList.find(
+                                    (university) => university.domain === currentValue
+                                  )
+                                  setDomainState(university ? university.domain : '')
+                                  setUniversityState(university)
+                                  setEmailState('')
+                                  form.setValue('university', university?.name)
+                                  setOpenDropDown(false)
+                                }}
+                              >
+                                <Check
+                                  className={cn(
+                                    "mr-2 h-4 w-4",
+                                    universityState?.name === university.name ? "opacity-100" : "opacity-0"
+                                  )}
+                                />
+                                {university.name}
+                              </CommandItem>
+                            ))}
+                          </CommandGroup>
+                        </CommandList>
+                      </Command>
+                    </PopoverContent>
+                  </Popover>
+                </div>
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -111,7 +246,23 @@ export const TutorRegisterForm = ({ group }: { group: 'ENROLLED' | 'GRADUATED' }
             <FormItem>
               <FormLabel>Email</FormLabel>
               <FormControl>
-                <Input placeholder="Email" {...field} />
+                <div className="relative">
+                  <Input placeholder="Email"  
+                    disabled={isPending}
+                    {...field}
+                    value={emailState}
+                    autoComplete="off"
+                    onChange={(e) => {
+                      setEmailState(e.target.value)
+                      form.setValue('email', e.target.value + domainState)
+                    }}
+                    
+                    className={`${domainState ? 'pe-40': ''}`}
+                  />
+                  <span className="my-3 mx-4 max-w-36 overflow-hidden absolute top-0 -right-0 ">
+                    <P className="text-text-primary/75 text-sm leading-4 font-normal">{domainState ? domainState : null}</P>
+                  </span>
+                </div>
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -122,14 +273,13 @@ export const TutorRegisterForm = ({ group }: { group: 'ENROLLED' | 'GRADUATED' }
           name="password"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="w-full inline-flex justify-between">
-                <P>Password</P>
-                <Link href="/auth/reset"><P>Forgot Password</P></Link>
+              <FormLabel>
+                Password
               </FormLabel>
               <FormControl>
                 <div className="relative">
-                  <Input type={passwordVisible == true ? 'text' : 'password'} className="pe-10" placeholder="Password" {...field} />
-                  <button className="material-symbols-outlined m-2 absolute top-0 -right-0"
+                  <Input type={passwordVisible == true ? 'text' : 'password'} className="pe-12" placeholder="Password" {...field} />
+                  <button className="material-symbols-outlined my-2 mx-4 absolute top-0 -right-0"
                     onClick={() => setPasswordVisible(!passwordVisible)}
                   >
                     {passwordVisible == true ? 'visibility' : 'visibility_off'}
@@ -157,13 +307,13 @@ export const TutorRegisterForm = ({ group }: { group: 'ENROLLED' | 'GRADUATED' }
           render={({ field }) => (
             <FormItem>
               <FormControl>
-                <div className="inline-flex items-start justify-start">
+                <div className="inline-flex items-start justify-start gap-2">
                   <Checkbox {...field} 
                     checked={field.value}
                     onCheckedChange={field.onChange}
                     value={field.value?.toString()}
                     disabled={field.disabled}
-                    className="m-1"
+                    className="my-1"
                   />
                   <Disabled className="">You agree to our <Link href="/terms-and-conditions">Terms of Service</Link> and <Link href='/privacy-policy'>Privacy Policy</Link></Disabled>
                 </div>

@@ -69,7 +69,7 @@ export const StudentRegisterForm = ({ group }: { group: 'SELF' | 'PARENT' }) => 
                 <Input
                   {...field}
                   disabled={isPending}
-                  placeholder="John Doe"
+                  placeholder="Name"
                 />
               </FormControl>
               <FormMessage />
@@ -86,7 +86,7 @@ export const StudentRegisterForm = ({ group }: { group: 'SELF' | 'PARENT' }) => 
                 <Input
                   {...field}
                   disabled={isPending}
-                  placeholder="john.doe@example.com"
+                  placeholder="Email"
                   type="email"
                 />
               </FormControl>
@@ -100,10 +100,7 @@ export const StudentRegisterForm = ({ group }: { group: 'SELF' | 'PARENT' }) => 
           render={({ field }) => (
             <FormItem className="relative">
               <FormLabel>
-                <div className="w-full inline-flex justify-between">
-                  <P>Password</P>
-                  <Link href="/auth/reset"><P>Forgot Password</P></Link>
-                </div>
+                Password
               </FormLabel>
               <FormControl>
                 <div className="relative">
@@ -147,13 +144,13 @@ export const StudentRegisterForm = ({ group }: { group: 'SELF' | 'PARENT' }) => 
           render={({ field }) => (
             <FormItem>
               <FormControl>
-                <div  className="inline-flex items-start justify-start">
+                <div  className="inline-flex items-start justify-start gap-1">
                   <Checkbox {...field} 
                     checked={field.value}
                     onCheckedChange={field.onChange}
                     value={field.value?.toString()}
                     disabled={field.disabled}
-                    className="m-1"
+                    className="my-1"
                   />
                   <Disabled>You agree to our <Link href="/terms-and-conditions">Terms of Service</Link> and <Link href='/privacy-policy'>Privacy Policy</Link></Disabled>
                 </div>
