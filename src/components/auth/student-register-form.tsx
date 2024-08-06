@@ -147,13 +147,13 @@ export const StudentRegisterForm = ({ group }: { group: 'SELF' | 'PARENT' }) => 
           render={({ field }) => (
             <FormItem>
               <FormControl>
-                <div  className="inline-flex items-start justify-start">
+                <div  className="inline-flex items-start justify-start gap-1">
                   <Checkbox {...field} 
                     checked={field.value}
                     onCheckedChange={field.onChange}
                     value={field.value?.toString()}
                     disabled={field.disabled}
-                    className="m-1"
+                    className="my-1"
                   />
                   <Disabled>You agree to our <Link href="/terms-and-conditions">Terms of Service</Link> and <Link href='/privacy-policy'>Privacy Policy</Link></Disabled>
                 </div>
