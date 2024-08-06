@@ -20,7 +20,10 @@ export default async function Home() {
       <Link href="/auth/login"><Button>Login</Button></Link>
       <Link href="/auth/register"><Button>Register</Button></Link>
       {
-        session && <Button onClick={() => signOut()}>Logout</Button>
+        session && <>
+          Welcome {session.user.email}
+          <Button onClick={() => signOut()}>Logout</Button>
+        </>
       }
     </>
   )
