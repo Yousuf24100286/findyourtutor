@@ -27,9 +27,7 @@ export default async function RootLayout({
         </head>
         <body className={`${poppins.className}`}>
           <Toaster position='top-center' richColors />
-          <div className="max-w-screen-lg mx-auto min-h-screen">
-            {children}
-          </div>
+          {children}
         </body>
       </html>
     </SessionProvider>
