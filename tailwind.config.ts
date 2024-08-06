@@ -35,21 +35,36 @@ const config = {
         "prussian-blue": {
           DEFAULT: "#023047",
         },
+        'saffron': {
+          DEFAULT: '#E9C46A'
+        },
+        'sandy-brown': {
+          DEFAULT: '#F4A261'
+        },
+        'sea-green': {
+          DEFAULT: '#40916C'
+        },
+        link: '#0C5DFF',
+        success: '#499F68',
+        warning: '#DD5147',
+        text: {
+          primary: '#040921',
+          secondary: '#04092160',
+          disabled: '#04092132',
+          placeholder: '#B3B3B3',
+        },
+        border: '#04092160',
+        primary: {
+          DEFAULT: "#EB7547",
+          foreground: "#FFFFFF",
+        },
 
         // shadcn-ui
-        border: "hsl(var(--border))",
+        background: "#F9F2E0",
+        foreground: "#000000",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
-        link: "hsl(var(--link))",
-        success: "hsl(var(--success))",
-        warning: "hsl(var(--warning))",
         disabled: "hsl(var(--disabled))",
-        background: "hsl(var(--background))",
-        foreground: "hsl(var(--foreground))",
-        primary: {
-          DEFAULT: "hsl(var(--primary))",
-          foreground: "hsl(var(--primary-foreground))",
-        },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
           foreground: "hsl(var(--secondary-foreground))",
@@ -74,11 +89,6 @@ const config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-      },
-      borderRadius: {
-        lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
       },
       keyframes: {
         "accordion-down": {
