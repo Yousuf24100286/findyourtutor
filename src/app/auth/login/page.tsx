@@ -1,6 +1,6 @@
 import { LoginForm } from "@/components/auth/login-form";
 import { AuthHeader } from "@/components/Header";
-import { H1, Muted, P } from "@/components/Typography";
+import { H2, Muted, P } from "@/components/Typography";
 import React from "react";
 import Link from 'next/link';
 import Image from 'next/image';
@@ -20,7 +20,7 @@ const LoginPage = () => {
         <AuthHeader />
         <div className='flex flex-row justify-center lg:w-[50%]'>
           <div className="flex flex-col items-center bg-white min-w-96 rounded-lg gap-6 py-6 px-10">
-            <H1>Log In</H1>
+            <H2>Log In</H2>
             <LoginForm />
             <Muted className="w-full">Don&apos;t have an account? <Link href='/auth/register'>Sign Up</Link></Muted>
           </div >
