@@ -55,7 +55,7 @@ const SignUpCard = async ({ role, group }: Readonly<TUserRoleGroupCombination>) 
           role === 'STUDENT' ? <StudentRegisterForm group={group} /> :
             redirect('/auth/login')
       }
-      <Disabled className='w-full text-left'>Already have an account? <Link href='/auth/login'>Sign in</Link></Disabled>
+      <Subtle className='w-full text-left text-text-secondary'>Already have an account? <Link href='/auth/login'>Sign in</Link></Subtle>
     </div>
   </div>
 )
