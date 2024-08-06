@@ -1,7 +1,7 @@
 "use client";
 
 import * as z from "zod";
-import { useState, useTransition } from "react";
+import { useEffect, useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { cn } from "@/lib/utils"
@@ -21,7 +21,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { register } from "@/actions/register";
 import { toast } from "sonner";
-import { Disabled, P } from "@/components/Typography";
+import { Disabled, P, Subtle } from "@/components/Typography";
 import { Checkbox } from "@/components/ui/checkbox";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
@@ -39,31 +39,39 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
 
 export const TutorRegisterForm = ({ group }: { group: 'ENROLLED' | 'GRADUATED' }) => {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [isPending, startTransition] = useTransition();
 
   const universitiesList: {
-    value: string;
-    label: string;
+    name: string;
+    domain: string;
   }[] = [
     {
-      value: "university1",
-      label: "University 1",
+      name: "not applicable",
+      domain: "",
     },
     {
-      value: "university2",
-      label: "University 2",
+      name: "university1",
+      domain: "@university1.com",
     },
     {
-      value: "university3",
-      label: "University 3",
+      name: "university2",
+      domain: "@university2.com",
+    },
+    {
+      name: "university3",
+      domain: "@university3.com",
     }
   ]
 
-  const [open, setOpen] = useState(false)
-  const [value, setValue] = useState("")
 
   const form = useForm<z.infer<typeof TutorRegisterSchema>>({
     resolver: zodResolver(TutorRegisterSchema),
@@ -78,6 +86,16 @@ export const TutorRegisterForm = ({ group }: { group: 'ENROLLED' | 'GRADUATED' }
     },
   });
 
+  const [openDropDown, setOpenDropDown] = useState(false)
+  const [universityState, setUniversityState] = useState<{
+    name: string;
+    domain: string
+  } | undefined>(undefined)
+  const [groupState, setGroupState] = useState(group)
+  const [domainState, setDomainState] = useState('')
+  const [emailState, setEmailState] = useState('')
+
+  
   const onSubmit = (values: z.infer<typeof TutorRegisterSchema>) => {
     startTransition(() => {
       register(values)
@@ -87,7 +105,6 @@ export const TutorRegisterForm = ({ group }: { group: 'ENROLLED' | 'GRADUATED' }
           }
           if (data.success) {
             toast.success(data.success);
-            form.reset();
           }
         })
     });
@@ -96,7 +113,11 @@ export const TutorRegisterForm = ({ group }: { group: 'ENROLLED' | 'GRADUATED' }
   return (
     <Form {...form}>
       <form
-        onSubmit={form.handleSubmit(onSubmit)}
+        onSubmit={(e) => {
+          e.preventDefault();
+          console.log(form.getValues())
+          form.handleSubmit(onSubmit)();
+        }}
         className="w-full flex flex-col gap-8"
       >
         <FormField
@@ -108,7 +129,17 @@ export const TutorRegisterForm = ({ group }: { group: 'ENROLLED' | 'GRADUATED' }
                 <RadioGroup
                   {...field}
                   className="flex flex-col gap-4"
-                  onValueChange={(value: 'ENROLLED' | 'GRADUATED') => form.setValue('group', value)}
+                  onValueChange={(value: 'ENROLLED' | 'GRADUATED') => {
+                    form.setValue('group', value)
+                    // setUniversityState({
+                    //   name: 'not applicable',
+                    //   domain: ''
+                    // })
+                    setUniversityState(undefined)
+                    setDomainState('')
+                    setEmailState('')
+                    setGroupState(value)
+                  }}
                 >
                   <div className="inline-flex gap-2">
                     <RadioGroupItem value="ENROLLED" />
@@ -145,21 +176,34 @@ export const TutorRegisterForm = ({ group }: { group: 'ENROLLED' | 'GRADUATED' }
           name="university"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>University</FormLabel>
+              <FormLabel className="inline-flex items-center">
+                University
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <span className="material-symbols-outlined scale-75 text-text-secondary">info</span>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <Subtle className='text-text-secondary'>If your university does not provide an email with the university domain, select &lsquo;not applicable&rsquo; from the drop-down menu.</Subtle>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+              </FormLabel>
               <FormControl>
                 <div>
-                  <Popover open={open} onOpenChange={setOpen}>
+                  <Popover open={openDropDown} onOpenChange={setOpenDropDown}>
                     <PopoverTrigger asChild
                       className="w-full"
                     >
                       <Button
                         variant="outline"
                         role="combobox"
-                        aria-expanded={open}
-                        className={`flex justify-between h-10 w-full rounded-md border border-border px-4 py-2 bg-transparent hover:bg-transparent text-base font-normal focus-visible:ring-2 focus-visible:ring-success focus-visible:ring-offset-2 focus-visible:ring-offset-white ${value ? "text-text-primary hover:text-text-primary" : "text-text-placeholder hover:text-text-placeholder"}`}
+                        aria-expanded={openDropDown}
+                        className={`flex justify-between h-10 w-full rounded-md border border-border px-4 py-2 bg-transparent hover:bg-transparent text-base font-normal focus-visible:ring-2 focus-visible:ring-success focus-visible:ring-offset-2 focus-visible:ring-offset-white ${universityState ? "text-text-primary hover:text-text-primary" : "text-text-placeholder hover:text-text-placeholder"}`}
+                        disabled={groupState === 'GRADUATED'}
                       >
-                        {value
-                          ? universitiesList.find((university) => university.value === value)?.label
+                        {universityState
+                          ? universitiesList.find((university) => university.name === universityState.name)?.name
                           : "Select university..."}
                         <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                       </Button>
@@ -172,20 +216,26 @@ export const TutorRegisterForm = ({ group }: { group: 'ENROLLED' | 'GRADUATED' }
                           <CommandGroup>
                             {universitiesList.map((university) => (
                               <CommandItem
-                                key={university.value}
-                                value={university.value}
+                                key={university.name}
+                                value={university.domain}
                                 onSelect={(currentValue) => {
-                                  setValue(currentValue === value ? "" : currentValue)
-                                  setOpen(false)
+                                  const university = universitiesList.find(
+                                    (university) => university.domain === currentValue
+                                  )
+                                  setDomainState(university ? university.domain : '')
+                                  setUniversityState(university)
+                                  setEmailState('')
+                                  form.setValue('university', university?.name)
+                                  setOpenDropDown(false)
                                 }}
                               >
                                 <Check
                                   className={cn(
                                     "mr-2 h-4 w-4",
-                                    value === university.value ? "opacity-100" : "opacity-0"
+                                    universityState?.name === university.name ? "opacity-100" : "opacity-0"
                                   )}
                                 />
-                                {university.label}
+                                {university.name}
                               </CommandItem>
                             ))}
                           </CommandGroup>
@@ -206,7 +256,23 @@ export const TutorRegisterForm = ({ group }: { group: 'ENROLLED' | 'GRADUATED' }
             <FormItem>
               <FormLabel>Email</FormLabel>
               <FormControl>
-                <Input placeholder="Email" {...field} />
+                <div className="relative">
+                  <Input placeholder="Email"  
+                    disabled={isPending}
+                    {...field}
+                    value={emailState}
+                    autoComplete="off"
+                    onChange={(e) => {
+                      setEmailState(e.target.value)
+                      form.setValue('email', e.target.value + domainState)
+                    }}
+                    
+                    className={`${domainState ? 'pe-40': ''}`}
+                  />
+                  <span className="my-2 mx-4 max-w-36 overflow-hidden absolute top-0 -right-0">
+                    <P>{domainState ? domainState : null}</P>
+                  </span>
+                </div>
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -223,8 +289,8 @@ export const TutorRegisterForm = ({ group }: { group: 'ENROLLED' | 'GRADUATED' }
               </FormLabel>
               <FormControl>
                 <div className="relative">
-                  <Input type={passwordVisible == true ? 'text' : 'password'} className="pe-10" placeholder="Password" {...field} />
-                  <button className="material-symbols-outlined m-2 absolute top-0 -right-0"
+                  <Input type={passwordVisible == true ? 'text' : 'password'} className="pe-12" placeholder="Password" {...field} />
+                  <button className="material-symbols-outlined my-2 mx-4 absolute top-0 -right-0"
                     onClick={() => setPasswordVisible(!passwordVisible)}
                   >
                     {passwordVisible == true ? 'visibility' : 'visibility_off'}

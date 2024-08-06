@@ -95,7 +95,7 @@ export const LoginForm = () => {
           render={({ field }) => (
             <FormItem>
               <FormControl>
-                <div className="inline-flex items-start justify-start gap-1">
+                <div className="inline-flex items-start justify-start gap-2">
                   <Checkbox {...field} 
                       checked={field.value}
                       onCheckedChange={field.onChange}
