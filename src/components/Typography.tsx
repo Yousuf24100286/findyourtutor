@@ -50,7 +50,7 @@ export const P = ({ children, className }: TypographyProps) =>
   <p className={cn("text-base leading-7 font-normal tracking-normal", className)}>{children}</p>;
 
 export const Subtle = ({ children, className }: TypographyProps) =>
-  <p className={cn("text-sm text-text-secondary font-normal", className)}>{children}</p>;
+  <p className={cn("text-sm font-normal", className)}>{children}</p>;
 
 export const Blockquote = ({ children, className }: TypographyProps) => 
   <blockquote className={cn("mt-6 border-l-2 pl-6 italic", className)}>{children}</blockquote>;
