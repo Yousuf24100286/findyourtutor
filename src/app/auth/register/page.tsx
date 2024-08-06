@@ -48,7 +48,7 @@ const SignUpCard = async ({ role, group }: Readonly<TUserRoleGroupCombination>) 
       <div className="flex items-center">
         <H2>Sign Up</H2>
         <H2>&nbsp;|&nbsp;</H2>
-        <P>{role === 'TUTOR' ? role.charAt(0).toUpperCase() + role.slice(1) : group.charAt(0).toUpperCase() + group.slice(1)}</P>
+        <P>{role === 'TUTOR' ? "Tutor" : (group === 'PARENT' ? "Parent" : "Student")}</P>
       </div>
       {
         role === 'TUTOR' ? <TutorRegisterForm group={group} /> :
