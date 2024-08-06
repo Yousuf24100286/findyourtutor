@@ -18,7 +18,7 @@ const LoginPage = () => {
       </div>
       <div className='min-h-screen flex flex-col items-center lg:items-end justify-between py-4'>
         <AuthHeader />
-        <div className='flex flex-row justify-center lg:w-[50%]'>
+        <div className='flex flex-row justify-end lg:w-[50%]'>
           <div className="flex flex-col items-center bg-white min-w-96 rounded-lg gap-6 py-6 px-10">
             <H1>Log In</H1>
             <LoginForm />
