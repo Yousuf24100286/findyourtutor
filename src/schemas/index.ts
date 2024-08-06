@@ -25,7 +25,7 @@ export const RegisterSchema = z.object({
 });
 
 export const TutorRegisterSchema = RegisterSchema.extend({
-  university: z.string().min(1, { message: "University is required" }).optional(),
+  university: z.string().optional(),
 });
 
 export const UserRoleGroupCombinationSchema = z.union([
