@@ -100,10 +100,7 @@ export const StudentRegisterForm = ({ group }: { group: 'SELF' | 'PARENT' }) => 
           render={({ field }) => (
             <FormItem className="relative">
               <FormLabel>
-                <div className="w-full inline-flex justify-between">
-                  <P>Password</P>
-                  <Link href="/auth/reset"><P>Forgot Password</P></Link>
-                </div>
+                Password
               </FormLabel>
               <FormControl>
                 <div className="relative">

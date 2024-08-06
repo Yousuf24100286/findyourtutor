@@ -131,10 +131,6 @@ export const TutorRegisterForm = ({ group }: { group: 'ENROLLED' | 'GRADUATED' }
                   className="flex flex-col gap-4"
                   onValueChange={(value: 'ENROLLED' | 'GRADUATED') => {
                     form.setValue('group', value)
-                    // setUniversityState({
-                    //   name: 'not applicable',
-                    //   domain: ''
-                    // })
                     setUniversityState(undefined)
                     setDomainState('')
                     setEmailState('')
@@ -283,9 +279,8 @@ export const TutorRegisterForm = ({ group }: { group: 'ENROLLED' | 'GRADUATED' }
           name="password"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="w-full inline-flex justify-between">
+              <FormLabel>
                 Password
-                <Link href="/auth/reset">Forgot Password</Link>
               </FormLabel>
               <FormControl>
                 <div className="relative">
